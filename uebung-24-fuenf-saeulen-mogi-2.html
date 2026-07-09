@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fünf Säulen nach Ken Mogi – Ikigai-Reflexion</title>
+<style>
+:root {
+  --red: #c02c22;
+  --red-dark: #8f2016;
+  --red-tint: #faece9;
+  --ink: #2a2521;
+  --text-muted: #5c564f;
+  --text-light: #8c857c;
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 15px;
+}
+.app { max-width: 1080px; margin: 0 auto; padding: 32px 20px 80px; }
+
+/* Header */
+.header { text-align: center; padding: 12px 0 36px; }
+.header .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+.header h1 { font-family: Georgia, "Iowan Old Style", "Times New Roman", serif; font-size: 30px; font-weight: 700; color: var(--ink); margin-bottom: 16px; letter-spacing: -0.01em; }
+.header .subtitle { font-size: 15px; color: var(--text-muted); max-width: 660px; margin: 0 auto; line-height: 1.75; }
+.header .task { font-size: 14px; color: var(--text-muted); max-width: 660px; margin: 16px auto 0; line-height: 1.75; text-align: left; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 8px; padding: 16px 20px; }
+
+/* Progress */
+.progress-wrap { display: flex; align-items: center; gap: 12px; margin: 36px 0 8px; }
+.progress-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0%; background: var(--red); border-radius: 3px; transition: width 0.3s ease; }
+.progress-label { font-size: 12px; color: var(--text-light); white-space: nowrap; }
+
+.section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+.section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.section-header .icon { width: 44px; height: 44px; border-radius: 50%; background: var(--red-tint); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.section-header .icon svg { width: 22px; height: 22px; stroke: var(--red); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.section-header h2 { font-size: 19px; font-weight: 700; color: var(--ink); }
+.section-header p { font-size: 13px; color: var(--text-light); margin-top: 2px; }
+.pillar-svg-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.pillar-bar { cursor: pointer; transition: opacity 0.15s; }
+.pillar-bar:hover { opacity: 0.85; }
+.pillar.highlight { border-color: var(--red); box-shadow: 0 0 0 3px rgba(192,44,34,0.08); }
+
+/* Pillars */
+.pillars { display: flex; flex-direction: column; gap: 18px; margin-bottom: 28px; }
+.pillar { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; }
+.pillar-head { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+.pillar-num {
+  flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--red-tint);
+  color: var(--red-dark); font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center;
+}
+.pillar-title { font-size: 17px; font-weight: 700; color: var(--ink); }
+.pillar-focus { font-size: 13px; color: var(--text-light); margin-top: 2px; }
+.pillar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.pillar-field label { display: block; font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 7px; line-height: 1.5; }
+textarea {
+  width: 100%; min-height: 84px; border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 12px; font-size: 13px; font-family: inherit; color: var(--ink);
+  background: var(--bg); resize: vertical;
+}
+textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(192,44,34,0.1); }
+
+/* Actions */
+.actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+.actions button {
+  padding: 11px 22px; border-radius: 7px; font-size: 13.5px; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); font-family: inherit;
+  transition: border-color 0.15s, color 0.15s;
+}
+.actions button:hover { border-color: var(--red); color: var(--red-dark); }
+.actions .btn-primary { background: var(--red); color: #fff; border-color: var(--red); }
+.actions .btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); color: #fff; }
+.saved-note { text-align: center; font-size: 12px; color: var(--text-light); margin-bottom: 24px; min-height: 16px; }
+
+/* Footer */
+.footer { text-align: center; font-size: 12px; color: var(--text-light); border-top: 1px solid var(--border); padding-top: 20px; }
+
+@media (max-width: 700px) {
+  .pillar-grid { grid-template-columns: 1fr; }
+}
+@media print {
+  .actions, .progress-wrap, .saved-note { display: none !important; }
+  textarea { border: none; background: none; padding: 4px 0; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div class="eyebrow">Ikigai in der Erwachsenenbildung, Beratung und Therapie</div>
+    <h1>Die fünf Säulen nach Ken Mogi</h1>
+    <p class="subtitle">Übung 24, Kapitel 2.7.3 · Mit Ikigai arbeiten nach Ken Mogi</p>
+    <div class="task">
+      Ken Mogi (2017) beschreibt fünf Säulen, die beim Arbeiten mit Ikigai hilfreich sein können. Lenken Sie Ihre Aufmerksamkeit auf jede dieser Säulen und füllen Sie für sich aus, wie und wo Sie diese bereits in Ihrem Alltag leben und wie Sie dies noch mehr tun könnten.
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">0 von 10 Reflexionen begonnen</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M6 20V10M12 20V4M18 20v-7"/></svg></div>
+      <div>
+        <h2>Die fünf Säulen im Überblick</h2>
+        <p>Klicken Sie auf eine Säule, um zur passenden Karte zu springen.</p>
+      </div>
+    </div>
+    <div class="pillar-svg-wrap">
+      <svg id="pillarSvg" viewBox="0 0 760 300" width="100%" height="auto"></svg>
+    </div>
+  </div>
+
+  <div class="pillars" id="pillars"></div>
+
+  <div class="actions">
+    <button class="btn-primary" onclick="downloadText()">Reflexionen als Text herunterladen</button>
+    <button onclick="window.print()">Drucken</button>
+    <button onclick="resetAll()">Zurücksetzen</button>
+  </div>
+  <div class="saved-note" id="savedNote"></div>
+
+  <div class="footer">
+    <p>Diese Anwendung speichert keine Daten. Ihre Eingaben verbleiben ausschließlich in Ihrem Browser, werden nicht an einen Server übertragen und gehen beim Schließen oder Neuladen der Seite verloren, sofern Sie sie nicht zuvor herunterladen.</p>
+    <p style="margin-top:8px;">Übung 24 aus: Vanderheiden, E., &amp; Mayer, C.-H. <em>Ikigai in der Erwachsenenbildung, Beratung und Therapie.</em> UTB. Nach Mogi (2018).</p>
+  </div>
+
+</div>
+
+<script>
+const PILLARS = [
+  { num: 1, titel: 'Klein beginnen', fokus: 'Sich auf die Details konzentrieren', color: '#b7cf74', height: 200 },
+  { num: 2, titel: 'Sich selber loslassen', fokus: 'Sich selber annehmen', color: '#a3c778', height: 185 },
+  { num: 3, titel: 'Harmonie und Nachhaltigkeit finden', fokus: 'Sich auf andere verlassen', color: '#8ec397', height: 158 },
+  { num: 4, titel: 'Freude an den kleinen Dingen finden', fokus: 'Sinnesfreuden genießen', color: '#7cbdb2', height: 158 },
+  { num: 5, titel: 'Im Hier und Jetzt sein', fokus: 'Im Flow sein', color: '#7aabc9', height: 172 }
+];
+
+function wrapLabel(text, maxChars) {
+  const words = text.split(' ');
+  const lines = [];
+  let current = '';
+  words.forEach(word => {
+    const candidate = current ? current + ' ' + word : word;
+    if (candidate.length > maxChars && current) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = candidate;
+    }
+  });
+  if (current) lines.push(current);
+  return lines;
+}
+
+function renderPillarSvg() {
+  const svg = document.getElementById('pillarSvg');
+  const barWidth = 96, gap = 22;
+  const totalWidth = PILLARS.length * barWidth + (PILLARS.length - 1) * gap;
+  const startX = (760 - totalWidth) / 2;
+  const baseline = 250;
+
+  let content = '';
+  content += `<path d="M 50,258 C 200,268 300,238 400,248 C 500,258 600,238 710,246" fill="none" stroke="var(--border)" stroke-width="2"/>`;
+
+  PILLARS.forEach((p, i) => {
+    const x = startX + i * (barWidth + gap);
+    const y = baseline - p.height;
+    content += `<rect class="pillar-bar" data-num="${p.num}" x="${x}" y="${y}" width="${barWidth}" height="${p.height}" rx="10" fill="${p.color}" onclick="jumpToPillar(${p.num})"/>`;
+
+    const cx = x + barWidth / 2;
+    const cy = y + p.height / 2;
+    const lines = wrapLabel(p.titel, 15);
+    const startOffset = -((lines.length - 1) * 8);
+    content += `<text x="${cx}" y="${cy}" text-anchor="middle" font-size="12.5" fill="#23261f" pointer-events="none" transform="rotate(-90 ${cx} ${cy})">`;
+    lines.forEach((line, li) => {
+      content += `<tspan x="${cx}" dy="${li === 0 ? startOffset : 15}">${line}</tspan>`;
+    });
+    content += `</text>`;
+  });
+
+  svg.innerHTML = content;
+}
+
+function jumpToPillar(num) {
+  const card = document.getElementById('pillar-card-' + num);
+  if (!card) return;
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  card.classList.add('highlight');
+  setTimeout(() => card.classList.remove('highlight'), 1500);
+}
+
+function renderPillars() {
+  const container = document.getElementById('pillars');
+  container.innerHTML = PILLARS.map(p => `
+    <div class="pillar" id="pillar-card-${p.num}">
+      <div class="pillar-head">
+        <div class="pillar-num" style="background:${p.color}22; color:${p.color};">${p.num}</div>
+        <div>
+          <div class="pillar-title">${p.titel}</div>
+          <div class="pillar-focus">Fokus: ${p.fokus}</div>
+        </div>
+      </div>
+      <div class="pillar-grid">
+        <div class="pillar-field">
+          <label for="alltag-${p.num}">Wie und wo tun Sie dies in Ihrem Alltag?</label>
+          <textarea class="reflect" id="alltag-${p.num}" placeholder="Notieren Sie ein konkretes Beispiel aus Ihrem Alltag …"></textarea>
+        </div>
+        <div class="pillar-field">
+          <label for="mehr-${p.num}">Wie können Sie dies noch mehr tun?</label>
+          <textarea class="reflect" id="mehr-${p.num}" placeholder="Notieren Sie eine Idee, wie Sie dies vertiefen könnten …"></textarea>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  document.querySelectorAll('.reflect').forEach(el => el.addEventListener('input', updateProgress));
+}
+
+function updateProgress() {
+  const fields = document.querySelectorAll('.reflect');
+  const filled = Array.from(fields).filter(el => el.value.trim().length > 0).length;
+  const pct = Math.round((filled / fields.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = filled + ' von ' + fields.length + ' Reflexionen begonnen';
+}
+
+function buildText() {
+  let out = 'DIE FÜNF SÄULEN NACH KEN MOGI\n';
+  out += 'Übung 24, aus: Vanderheiden & Mayer, Ikigai in der Erwachsenenbildung, Beratung und Therapie (UTB)\n';
+  out += 'Datum: ' + new Date().toLocaleDateString('de-DE') + '\n';
+  out += '='.repeat(50) + '\n\n';
+
+  PILLARS.forEach(p => {
+    out += p.num + '. ' + p.titel + ' (Fokus: ' + p.fokus + ')\n';
+    out += '-'.repeat(p.titel.length + 4) + '\n';
+    const alltag = document.getElementById('alltag-' + p.num).value.trim();
+    const mehr = document.getElementById('mehr-' + p.num).value.trim();
+    out += 'Wie und wo im Alltag: ' + (alltag || '(keine Angabe)') + '\n';
+    out += 'Wie noch mehr: ' + (mehr || '(keine Angabe)') + '\n\n';
+  });
+
+  return out;
+}
+
+function downloadText() {
+  const text = buildText();
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ikigai_fuenf_saeulen_mogi_' + new Date().toISOString().slice(0,10) + '.txt';
+  a.click();
+  const note = document.getElementById('savedNote');
+  note.textContent = 'Datei wurde heruntergeladen.';
+  setTimeout(() => { note.textContent = ''; }, 3000);
+}
+
+function resetAll() {
+  if (!confirm('Möchten Sie wirklich alle Eingaben löschen?')) return;
+  document.querySelectorAll('.reflect').forEach(el => el.value = '');
+  updateProgress();
+}
+
+renderPillarSvg();
+renderPillars();
+updateProgress();
+</script>
+</body>
+</html>
