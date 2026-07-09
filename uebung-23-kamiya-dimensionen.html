@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ikigai-Dimensionen nach Kamiya – Mindmap</title>
+<style>
+:root {
+  --red: #c02c22;
+  --red-dark: #8f2016;
+  --red-tint: #faece9;
+  --ink: #2a2521;
+  --text-muted: #5c564f;
+  --text-light: #8c857c;
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 15px;
+}
+.app { max-width: 1140px; margin: 0 auto; padding: 32px 20px 80px; }
+
+.header { text-align: center; padding: 12px 0 36px; }
+.header .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+.header h1 { font-family: Georgia, "Iowan Old Style", "Times New Roman", serif; font-size: 30px; font-weight: 700; color: var(--ink); margin-bottom: 16px; letter-spacing: -0.01em; }
+.header .subtitle { font-size: 15px; color: var(--text-muted); max-width: 680px; margin: 0 auto; line-height: 1.75; }
+.header .task { font-size: 14px; color: var(--text-muted); max-width: 680px; margin: 16px auto 0; line-height: 1.75; text-align: left; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 8px; padding: 16px 20px; }
+
+.progress-wrap { display: flex; align-items: center; gap: 12px; margin: 36px 0 8px; }
+.progress-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0%; background: var(--red); border-radius: 3px; transition: width 0.3s ease; }
+.progress-label { font-size: 12px; color: var(--text-light); white-space: nowrap; }
+
+.section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+.section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.section-header .icon { width: 44px; height: 44px; border-radius: 50%; background: var(--red-tint); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.section-header .icon svg { width: 22px; height: 22px; stroke: var(--red); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.section-header h2 { font-size: 19px; font-weight: 700; color: var(--ink); }
+.section-header p { font-size: 13px; color: var(--text-light); margin-top: 2px; }
+.step-badge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--red-dark); background: var(--red-tint); border-radius: 999px; padding: 3px 10px; margin-bottom: 10px; }
+
+.mindmap-layout { display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+.mindmap-svg-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px; }
+.mindmap-note { font-size: 12px; color: var(--text-light); margin-top: 12px; line-height: 1.6; }
+
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.tab {
+  border: 1px solid var(--border); border-radius: 999px; padding: 5px 11px; font-size: 12px; font-weight: 600;
+  cursor: pointer; color: var(--text-muted); background: var(--surface); display: flex; align-items: center; gap: 6px;
+}
+.tab .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.tab.active { border-color: var(--red); color: var(--red-dark); background: var(--red-tint); }
+
+.detail-hint { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.6; }
+
+.symbol-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.symbol-btn {
+  width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg);
+  font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.symbol-btn.active { border-color: var(--red); background: var(--red-tint); }
+.custom-symbol-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.custom-symbol-row label { font-size: 12px; color: var(--text-light); white-space: nowrap; }
+.custom-symbol-row input {
+  width: 64px; border: 1px solid var(--border); border-radius: 8px; padding: 6px 8px; font-size: 15px;
+  font-family: inherit; text-align: center; background: var(--bg); color: var(--ink);
+}
+.custom-symbol-row input:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(192,44,34,0.1); }
+.custom-symbol-row span { font-size: 11.5px; color: var(--text-light); }
+
+.add-row { display: flex; gap: 8px; margin-bottom: 18px; }
+.add-row input[type="text"] {
+  flex: 1; border: 1px solid var(--border); border-radius: 8px; padding: 9px 11px; font-size: 13px;
+  font-family: inherit; color: var(--ink); background: var(--bg);
+}
+.add-row input[type="text"]:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(192,44,34,0.1); }
+.add-row button {
+  padding: 9px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--red); background: var(--red); color: #fff; font-family: inherit; white-space: nowrap;
+}
+.add-row button:hover { background: var(--red-dark); border-color: var(--red-dark); }
+
+.child-list { display: flex; flex-direction: column; gap: 6px; }
+.child-empty { font-size: 12.5px; color: var(--text-light); text-align: center; padding: 14px; border: 1px dashed var(--border); border-radius: 8px; }
+.child-row { display: flex; align-items: center; gap: 8px; border: 1px solid var(--border); border-radius: 8px; padding: 6px 8px; }
+.child-row.highlight { border-color: var(--red); }
+.child-symbol { font-size: 15px; width: 22px; text-align: center; flex-shrink: 0; }
+.child-row input[type="text"] { flex: 1; border: none; background: none; font-size: 13px; font-family: inherit; color: var(--ink); padding: 4px 2px; }
+.child-row input[type="text"]:focus { outline: none; }
+.child-del { background: none; border: none; color: var(--text-light); cursor: pointer; font-size: 15px; line-height: 1; padding: 2px 4px; }
+.child-del:hover { color: var(--red); }
+
+.field { margin-bottom: 18px; }
+.field:last-child { margin-bottom: 0; }
+.field label { display: block; font-size: 13.5px; font-weight: 600; color: var(--ink); margin-bottom: 8px; line-height: 1.5; }
+textarea {
+  width: 100%; min-height: 90px; border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 12px; font-size: 13px; font-family: inherit; color: var(--ink);
+  background: var(--bg); resize: vertical;
+}
+textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(192,44,34,0.1); }
+
+.actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+.actions button {
+  padding: 11px 22px; border-radius: 7px; font-size: 13.5px; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); font-family: inherit;
+  transition: border-color 0.15s, color 0.15s;
+}
+.actions button:hover { border-color: var(--red); color: var(--red-dark); }
+.actions .btn-primary { background: var(--red); color: #fff; border-color: var(--red); }
+.actions .btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); color: #fff; }
+.saved-note { text-align: center; font-size: 12px; color: var(--text-light); margin-bottom: 24px; min-height: 16px; }
+
+.footer { text-align: center; font-size: 12px; color: var(--text-light); border-top: 1px solid var(--border); padding-top: 20px; }
+
+@media (max-width: 900px) {
+  .mindmap-layout { grid-template-columns: 1fr; }
+}
+@media print {
+  .actions, .progress-wrap, .saved-note, .add-row, .symbol-row { display: none !important; }
+  textarea { border: none; background: none; padding: 4px 0; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div class="eyebrow">Ikigai in der Erwachsenenbildung, Beratung und Therapie</div>
+    <h1>Ikigai-Dimensionen nach Kamiya</h1>
+    <p class="subtitle">Übung 23, Kapitel 2.7.2 · Ikigai kreieren mit Mieko Kamiya</p>
+    <div class="task">
+      Legen Sie eine Mindmap zu den sieben Ikigai-Dimensionen von Kamiya (1966) an. Wählen Sie dazu einen Ast der Mindmap aus und ergänzen Sie frei eigene Gedanken, Stichworte oder kleine Symbole. Diesen Prozess können Sie in einem festen Zeitrahmen durchführen oder über einen längeren Zeitraum immer wieder erweitern. Besprechen Sie die Wichtigkeiten in diesen Dimensionen auch mit Ihnen nahen und vertrauten Personen.
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">0 von 9 Ästen mit Einträgen</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 9V4M12 15v5M15 12h5M9 12H4M14.1 9.9 17.5 6.5M9.9 14.1 6.5 17.5M14.1 14.1 17.5 17.5M9.9 9.9 6.5 6.5"/></svg></div>
+      <div>
+        <h2>Ihre Mindmap</h2>
+        <p>Wählen Sie einen Ast aus, um eigene Gedanken und Symbole zu ergänzen.</p>
+      </div>
+    </div>
+
+    <div class="mindmap-layout">
+      <div>
+        <div class="mindmap-svg-wrap">
+          <svg id="mapSvg" viewBox="0 0 800 680" width="100%" height="auto"></svg>
+        </div>
+        <p class="mindmap-note">Jeder Ast wächst mit der Zahl Ihrer Einträge. Ihre Mindmap darf mit der Zeit unregelmäßig und ganz persönlich wachsen.</p>
+      </div>
+
+      <div>
+        <div class="tabs" id="tabs"></div>
+        <div class="detail-hint" id="detailHint"></div>
+
+        <div class="symbol-row" id="symbolRow"></div>
+        <div class="custom-symbol-row">
+          <label for="customSymbol">Eigenes Symbol</label>
+          <input type="text" id="customSymbol" maxlength="4" placeholder="z. B. 🧭" oninput="handleCustomSymbolInput(this.value)">
+          <span>oder aus einer Emoji-Tastatur einfügen</span>
+        </div>
+        <div class="add-row">
+          <input type="text" id="newChildText" placeholder="Gedanke, Stichwort oder Bildidee …">
+          <button onclick="addChild()">Hinzufügen</button>
+        </div>
+
+        <div class="child-list" id="childList"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="step-badge">Ergänzend</div>
+    <div class="section-header">
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8-1.06 0-2.075-.163-3.016-.463L3 21l1.5-3.9C3.55 15.86 3 14.02 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8Z"/></svg></div>
+      <div>
+        <h2>Austausch und Weiterentwicklung</h2>
+        <p>Ikigai entfaltet sich auch im Gespräch mit anderen und über die Zeit.</p>
+      </div>
+    </div>
+    <div class="field">
+      <label for="f-austausch">Was hat sich im Gespräch mit einer Ihnen nahen und vertrauten Person über die Wichtigkeit dieser Dimensionen gezeigt? Wo stimmen Ihre Einschätzungen überein, wo unterscheiden sie sich?</label>
+      <textarea id="f-austausch" placeholder="Notieren Sie, was der Austausch ergeben hat …"></textarea>
+    </div>
+    <div class="field">
+      <label for="f-entwicklung">Falls Sie eine frühere Fassung dieser Mindmap heruntergeladen haben: Vergleichen Sie diese mit Ihrem heutigen Stand. Was hat sich verändert, und woran könnte das liegen? Falls dies Ihre erste Bearbeitung ist, laden Sie sich die Datei am Ende herunter, um sie später mit einer neuen Fassung vergleichen zu können.</label>
+      <textarea id="f-entwicklung" placeholder="Notieren Sie, was sich im Vergleich zur heruntergeladenen Fassung verändert hat …"></textarea>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn-primary" onclick="downloadText()">Mindmap als Text herunterladen</button>
+    <button onclick="window.print()">Drucken</button>
+    <button onclick="resetAll()">Zurücksetzen</button>
+  </div>
+  <div class="saved-note" id="savedNote"></div>
+
+  <div class="footer">
+    <p>Diese Anwendung speichert keine Daten. Ihre Eingaben verbleiben ausschließlich in Ihrem Browser, werden nicht an einen Server übertragen und gehen beim Schließen oder Neuladen der Seite verloren, sofern Sie sie nicht zuvor herunterladen.</p>
+    <p style="margin-top:8px;">Übung 23 aus: Vanderheiden, E., &amp; Mayer, C.-H. <em>Ikigai in der Erwachsenenbildung, Beratung und Therapie.</em> UTB. Nach Kamiya (1966).</p>
+  </div>
+
+</div>
+
+<script>
+const DIMENSIONS = [
+  { id: 0, name: 'Lebenszufriedenheit', lines: ['Lebens-', 'zufriedenheit'], color: '#7fa3c4',
+    hint: 'Wie zufrieden sind Sie insgesamt mit Ihrem Leben, so wie es gerade ist? Woran machen Sie das fest?' },
+  { id: 1, name: 'Selbstverwirklichung', lines: ['Selbst-', 'verwirklichung'], color: '#c3bd68',
+    hint: 'Wo verwirklichen Sie sich selbst und Ihre Potenziale? Wo spüren Sie, dass Sie ganz bei sich sind?' },
+  { id: 2, name: 'Freiheit', lines: ['Freiheit'], color: '#a8b96b',
+    hint: 'Wo erleben Sie Freiheit in Ihrem Leben, und wo fehlt sie Ihnen vielleicht?' },
+  { id: 3, name: 'Wachstum und Veränderung', lines: ['Wachstum', 'und Veränderung'], color: '#8ab189',
+    hint: 'Wo erleben Sie gerade Wachstum oder Veränderung? Was hat sich in den letzten Jahren an Ihnen entwickelt?' },
+  { id: 4, name: 'Resonanz in Beziehungen und an Orten', lines: ['Resonanz in Beziehungen', 'und an Orten'], color: '#7cb39e',
+    hint: 'An welchen Orten und in welchen Beziehungen erleben Sie Resonanz, ein Gefühl von Verbundenheit und Widerhall?' },
+  { id: 5, name: 'Eine konstruktive Zukunftsperspektive', lines: ['Eine konstruktive', 'Zukunftsperspektive'], color: '#6fa8ac',
+    hint: 'Wie blicken Sie auf Ihre Zukunft? Was macht diese Perspektive für Sie konstruktiv, was eher belastend?' },
+  { id: 6, name: 'Harmonie', lines: ['Harmonie'], color: '#4f8b96',
+    hint: 'Wo erleben Sie Harmonie und Einklang in Ihrem Leben, mit sich selbst und mit anderen?' }
+];
+
+const SYMBOLS = ['–', '✏️', '🎨', '📷', '📖', '🎵', '🌱', '🌿', '🌸', '🌊', '☀️', '🌙', '🔥', '💧', '⭐', '✨', '❤️', '🕊️', '🤝', '🏡', '💭'];
+
+const children = {};
+DIMENSIONS.forEach(d => { children[d.id] = []; });
+let selectedPrimary = 0;
+let selectedSymbol = SYMBOLS[0];
+let highlightChildId = null;
+let childCounter = 0;
+
+const CX = 400, CY = 340, R_PRIMARY = 220, CHILD_GAP = 46, CHILD_STEP = 40;
+
+function polar(cx, cy, r, angleDeg) {
+  const a = (angleDeg * Math.PI) / 180;
+  return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+}
+
+function primaryRadius(count) {
+  return 30 + Math.min(count, 6) * 2.4;
+}
+
+function wrapLabel(text, maxChars) {
+  const words = text.split(' ');
+  const lines = [];
+  let current = '';
+  words.forEach(word => {
+    const candidate = current ? current + ' ' + word : word;
+    if (candidate.length > maxChars && current) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = candidate;
+    }
+  });
+  if (current) lines.push(current);
+  return lines.slice(0, 2);
+}
+
+function renderWheel() {
+  const svg = document.getElementById('mapSvg');
+  const segAngle = 360 / DIMENSIONS.length;
+  let content = '';
+
+  DIMENSIONS.forEach((d, i) => {
+    const angle = -90 + i * segAngle + segAngle / 2;
+    const pos = polar(CX, CY, R_PRIMARY, angle);
+    const rPrimary = primaryRadius(children[d.id].length);
+
+    content += `<line x1="${CX}" y1="${CY}" x2="${pos.x.toFixed(2)}" y2="${pos.y.toFixed(2)}" stroke="var(--border)" stroke-width="1.6"/>`;
+
+    const kids = children[d.id];
+    const n = kids.length;
+    const spread = Math.min(70, 18 * n);
+    const spreadStep = n > 1 ? spread / (n - 1) : 0;
+    const rChildBase = rPrimary + CHILD_GAP;
+
+    kids.forEach((child, j) => {
+      const offset = n === 1 ? 0 : -spread / 2 + j * spreadStep;
+      const childAngle = angle + offset;
+      const rChild = rChildBase + Math.floor(j / 3) * CHILD_STEP;
+      const childPos = polar(pos.x, pos.y, rChild, childAngle);
+      const isHi = child.id === highlightChildId;
+      content += `<line x1="${pos.x.toFixed(2)}" y1="${pos.y.toFixed(2)}" x2="${childPos.x.toFixed(2)}" y2="${childPos.y.toFixed(2)}" stroke="${d.color}" stroke-width="1.4" opacity="0.7"/>`;
+      content += `<circle class="node-child" data-dim="${d.id}" data-child="${child.id}" cx="${childPos.x.toFixed(2)}" cy="${childPos.y.toFixed(2)}" r="18" fill="var(--surface)" stroke="${isHi ? 'var(--red)' : d.color}" stroke-width="${isHi ? 2.4 : 1.6}" onclick="selectChild(${d.id}, ${child.id})"/>`;
+      const symLabel = child.symbol && child.symbol !== '–' ? child.symbol : '';
+      content += `<text x="${childPos.x.toFixed(2)}" y="${(childPos.y + 4).toFixed(2)}" text-anchor="middle" font-size="13" pointer-events="none">${symLabel}</text>`;
+      if (child.text) {
+        const lines = wrapLabel(child.text, 13);
+        const labelPos = polar(pos.x, pos.y, rChild + 24, childAngle);
+        const startDy = 3;
+        content += `<text x="${labelPos.x.toFixed(2)}" y="${(labelPos.y + startDy).toFixed(2)}" text-anchor="middle" font-size="9.5" fill="var(--text-muted)" pointer-events="none">`;
+        lines.forEach((line, li) => {
+          content += `<tspan x="${labelPos.x.toFixed(2)}" dy="${li === 0 ? 0 : 11}">${line}</tspan>`;
+        });
+        content += `</text>`;
+      }
+    });
+
+    const isSelected = d.id === selectedPrimary;
+    content += `<circle class="node-primary" data-dim="${d.id}" cx="${pos.x.toFixed(2)}" cy="${pos.y.toFixed(2)}" r="${rPrimary}" fill="${d.color}" stroke="${isSelected ? 'var(--red)' : '#ffffff'}" stroke-width="${isSelected ? 2.8 : 2}" onclick="selectPrimary(${d.id})"/>`;
+
+    const lineCount = d.lines.length;
+    const startDy = -((lineCount - 1) * 6.5) + 4;
+    content += `<text x="${pos.x.toFixed(2)}" y="${pos.y.toFixed(2)}" text-anchor="middle" font-size="10.5" fill="#20221f" pointer-events="none">`;
+    d.lines.forEach((line, li) => {
+      content += `<tspan x="${pos.x.toFixed(2)}" dy="${li === 0 ? startDy : 13}">${line}</tspan>`;
+    });
+    content += `</text>`;
+  });
+
+  content += `<circle cx="${CX}" cy="${CY}" r="32" fill="var(--ink)"/>`;
+  content += `<text x="${CX}" y="${CY + 4}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Ikigai</text>`;
+
+  svg.innerHTML = content;
+}
+
+function renderTabs() {
+  const tabs = document.getElementById('tabs');
+  tabs.innerHTML = DIMENSIONS.map(d =>
+    `<div class="tab ${d.id === selectedPrimary ? 'active' : ''}" onclick="selectPrimary(${d.id})">
+      <span class="dot" style="background:${d.color};"></span>${d.name}
+    </div>`
+  ).join('');
+}
+
+function renderSymbolRow() {
+  const row = document.getElementById('symbolRow');
+  row.innerHTML = SYMBOLS.map(s =>
+    `<button type="button" class="symbol-btn ${s === selectedSymbol ? 'active' : ''}" onclick="pickSymbol('${s}')">${s}</button>`
+  ).join('');
+}
+
+function pickSymbol(s) {
+  selectedSymbol = s;
+  document.getElementById('customSymbol').value = s === SYMBOLS[0] ? '' : s;
+  renderSymbolRow();
+}
+
+function handleCustomSymbolInput(value) {
+  const trimmed = value.trim();
+  selectedSymbol = trimmed ? trimmed : SYMBOLS[0];
+  renderSymbolRow();
+}
+
+function renderDetail() {
+  const d = DIMENSIONS.find(x => x.id === selectedPrimary);
+  document.getElementById('detailHint').textContent = d.hint;
+  renderChildList();
+}
+
+function renderChildList() {
+  const list = document.getElementById('childList');
+  const kids = children[selectedPrimary];
+  if (kids.length === 0) {
+    list.innerHTML = '<div class="child-empty">Noch keine Einträge an diesem Ast. Ergänzen Sie oben Ihren ersten Gedanken.</div>';
+    return;
+  }
+  list.innerHTML = kids.map(c => `
+    <div class="child-row ${c.id === highlightChildId ? 'highlight' : ''}">
+      <span class="child-symbol">${c.symbol && c.symbol !== '–' ? c.symbol : ''}</span>
+      <input type="text" value="${c.text.replace(/"/g, '&quot;')}" oninput="updateChildText(${selectedPrimary}, ${c.id}, this.value)">
+      <button class="child-del" onclick="removeChild(${selectedPrimary}, ${c.id})" title="Eintrag entfernen">×</button>
+    </div>`
+  ).join('');
+}
+
+function selectPrimary(id) {
+  selectedPrimary = id;
+  highlightChildId = null;
+  renderTabs();
+  renderDetail();
+  renderWheel();
+}
+
+function selectChild(dimId, childId) {
+  selectedPrimary = dimId;
+  highlightChildId = childId;
+  renderTabs();
+  renderDetail();
+  renderWheel();
+}
+
+function addChild() {
+  const input = document.getElementById('newChildText');
+  const text = input.value.trim();
+  if (!text && selectedSymbol === SYMBOLS[0]) { input.focus(); return; }
+  childCounter += 1;
+  children[selectedPrimary].push({ id: childCounter, symbol: selectedSymbol, text });
+  input.value = '';
+  renderWheel();
+  renderChildList();
+  updateProgress();
+}
+
+function updateChildText(dimId, childId, value) {
+  const kid = children[dimId].find(c => c.id === childId);
+  if (kid) kid.text = value;
+  renderWheel();
+  updateProgress();
+}
+
+function removeChild(dimId, childId) {
+  children[dimId] = children[dimId].filter(c => c.id !== childId);
+  if (highlightChildId === childId) highlightChildId = null;
+  renderWheel();
+  renderChildList();
+  updateProgress();
+}
+
+function updateProgress() {
+  const dimFilled = DIMENSIONS.filter(d => children[d.id].length > 0).length;
+  const extraIds = ['f-austausch', 'f-entwicklung'];
+  const extraFilled = extraIds.filter(id => document.getElementById(id).value.trim().length > 0).length;
+  const total = DIMENSIONS.length + extraIds.length;
+  const filled = dimFilled + extraFilled;
+  const pct = Math.round((filled / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = filled + ' von ' + total + ' Ästen mit Einträgen';
+}
+
+document.getElementById('f-austausch').addEventListener('input', updateProgress);
+document.getElementById('f-entwicklung').addEventListener('input', updateProgress);
+
+function buildText() {
+  let out = 'IKIGAI-DIMENSIONEN NACH KAMIYA – MINDMAP\n';
+  out += 'Übung 23, aus: Vanderheiden & Mayer, Ikigai in der Erwachsenenbildung, Beratung und Therapie (UTB)\n';
+  out += 'Datum: ' + new Date().toLocaleDateString('de-DE') + '\n';
+  out += '='.repeat(50) + '\n\n';
+
+  DIMENSIONS.forEach(d => {
+    out += d.name + '\n';
+    out += '-'.repeat(d.name.length) + '\n';
+    const kids = children[d.id];
+    if (kids.length === 0) {
+      out += '(keine Einträge)\n\n';
+    } else {
+      kids.forEach(c => {
+        const sym = c.symbol && c.symbol !== '–' ? c.symbol + ' ' : '';
+        out += '  • ' + sym + (c.text || '(ohne Text)') + '\n';
+      });
+      out += '\n';
+    }
+  });
+
+  out += 'Austausch mit einer vertrauten Person\n';
+  out += '-'.repeat(37) + '\n';
+  out += (document.getElementById('f-austausch').value.trim() || '(keine Angabe)') + '\n\n';
+
+  out += 'Entwicklung seit der letzten Bearbeitung\n';
+  out += '-'.repeat(40) + '\n';
+  out += (document.getElementById('f-entwicklung').value.trim() || '(keine Angabe)') + '\n\n';
+
+  return out;
+}
+
+function downloadText() {
+  const text = buildText();
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ikigai_dimensionen_kamiya_mindmap_' + new Date().toISOString().slice(0,10) + '.txt';
+  a.click();
+  const note = document.getElementById('savedNote');
+  note.textContent = 'Datei wurde heruntergeladen.';
+  setTimeout(() => { note.textContent = ''; }, 3000);
+}
+
+function resetAll() {
+  if (!confirm('Möchten Sie wirklich alle Äste und Eingaben löschen?')) return;
+  DIMENSIONS.forEach(d => { children[d.id] = []; });
+  document.getElementById('f-austausch').value = '';
+  document.getElementById('f-entwicklung').value = '';
+  selectedPrimary = 0;
+  highlightChildId = null;
+  selectedSymbol = SYMBOLS[0];
+  document.getElementById('customSymbol').value = '';
+  renderTabs();
+  renderSymbolRow();
+  renderDetail();
+  renderWheel();
+  updateProgress();
+}
+
+renderTabs();
+renderSymbolRow();
+renderDetail();
+renderWheel();
+updateProgress();
+</script>
+</body>
+</html>

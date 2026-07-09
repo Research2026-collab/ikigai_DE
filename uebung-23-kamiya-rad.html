@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ikigai-Dimensionen nach Kamiya – Ikigai-Rad</title>
+<style>
+:root {
+  --red: #c02c22;
+  --red-dark: #8f2016;
+  --red-tint: #faece9;
+  --ink: #2a2521;
+  --text-muted: #5c564f;
+  --text-light: #8c857c;
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 15px;
+}
+.app { max-width: 1080px; margin: 0 auto; padding: 32px 20px 80px; }
+
+/* Header */
+.header { text-align: center; padding: 12px 0 36px; }
+.header .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+.header h1 { font-family: Georgia, "Iowan Old Style", "Times New Roman", serif; font-size: 30px; font-weight: 700; color: var(--ink); margin-bottom: 16px; letter-spacing: -0.01em; }
+.header .subtitle { font-size: 15px; color: var(--text-muted); max-width: 660px; margin: 0 auto; line-height: 1.75; }
+.header .task { font-size: 14px; color: var(--text-muted); max-width: 660px; margin: 16px auto 0; line-height: 1.75; text-align: left; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 8px; padding: 16px 20px; }
+
+/* Progress */
+.progress-wrap { display: flex; align-items: center; gap: 12px; margin: 36px 0 8px; }
+.progress-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0%; background: var(--red); border-radius: 3px; transition: width 0.3s ease; }
+.progress-label { font-size: 12px; color: var(--text-light); white-space: nowrap; }
+
+/* Section shell */
+.section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+.section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.section-header .icon { width: 44px; height: 44px; border-radius: 50%; background: var(--red-tint); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.section-header .icon svg { width: 22px; height: 22px; stroke: var(--red); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.section-header h2 { font-size: 19px; font-weight: 700; color: var(--ink); }
+.section-header p { font-size: 13px; color: var(--text-light); margin-top: 2px; }
+.step-badge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--red-dark); background: var(--red-tint); border-radius: 999px; padding: 3px 10px; margin-bottom: 10px; }
+
+/* Wheel layout */
+.wheel-layout { display: grid; grid-template-columns: 380px 1fr; gap: 28px; align-items: start; }
+.wheel-svg-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+.wheel-note { font-size: 12px; color: var(--text-light); margin-top: 12px; line-height: 1.6; }
+.wedge { cursor: pointer; transition: opacity 0.15s; }
+.wedge:hover { opacity: 0.85; }
+
+/* Detail panel */
+.detail-panel { border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-bottom: 16px; }
+.detail-title { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.detail-hint { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.6; }
+.importance-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.importance-row label { font-size: 12.5px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.importance-row input[type="range"] { flex: 1; accent-color: var(--red); }
+.importance-row span { font-size: 12px; color: var(--text-light); min-width: 88px; text-align: right; }
+
+/* Overview grid */
+.overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 6px; }
+.overview-card {
+  border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; cursor: pointer; font-size: 12px;
+  transition: border-color 0.15s;
+}
+.overview-card.active { border-color: var(--red); box-shadow: 0 0 0 2px rgba(192,44,34,0.08); }
+.overview-card .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+.overview-card .oname { font-weight: 600; color: var(--ink); }
+.overview-card .osnippet { color: var(--text-light); margin-top: 4px; min-height: 15px; }
+
+/* Reflection fields */
+.field { margin-bottom: 18px; }
+.field:last-child { margin-bottom: 0; }
+.field label { display: block; font-size: 13.5px; font-weight: 600; color: var(--ink); margin-bottom: 8px; line-height: 1.5; }
+textarea {
+  width: 100%; min-height: 90px; border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 12px; font-size: 13px; font-family: inherit; color: var(--ink);
+  background: var(--bg); resize: vertical;
+}
+textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(192,44,34,0.1); }
+
+/* Actions */
+.actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+.actions button {
+  padding: 11px 22px; border-radius: 7px; font-size: 13.5px; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); font-family: inherit;
+  transition: border-color 0.15s, color 0.15s;
+}
+.actions button:hover { border-color: var(--red); color: var(--red-dark); }
+.actions .btn-primary { background: var(--red); color: #fff; border-color: var(--red); }
+.actions .btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); color: #fff; }
+.saved-note { text-align: center; font-size: 12px; color: var(--text-light); margin-bottom: 24px; min-height: 16px; }
+
+.footer { text-align: center; font-size: 12px; color: var(--text-light); border-top: 1px solid var(--border); padding-top: 20px; }
+
+@media (max-width: 800px) {
+  .wheel-layout { grid-template-columns: 1fr; }
+}
+@media print {
+  .actions, .progress-wrap, .saved-note { display: none !important; }
+  textarea { border: none; background: none; padding: 4px 0; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div class="eyebrow">Ikigai in der Erwachsenenbildung, Beratung und Therapie</div>
+    <h1>Ikigai-Dimensionen nach Kamiya</h1>
+    <p class="subtitle">Übung 23, Kapitel 2.7.2 · Ikigai kreieren mit Mieko Kamiya</p>
+    <div class="task">
+      Legen Sie eine Mindmap zu den sieben Ikigai-Dimensionen von Kamiya (1966) an. Klicken Sie dazu auf ein Segment des Rades, schätzen Sie dessen Bedeutsamkeit für Ihr eigenes Leben ein und halten Sie Ihre Gedanken dazu fest. Je bedeutsamer eine Dimension für Sie ist, desto weiter reicht ihr Segment nach außen, sodass mit der Zeit Ihr persönliches Ikigai-Profil entsteht. Kehren Sie gerne über einen längeren Zeitraum immer wieder zu dieser Karte zurück und besprechen Sie die Wichtigkeiten auch mit Ihnen nahen und vertrauten Personen.
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">0 von 9 Reflexionen begonnen</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3 L12 12 L18.5 15.5"/></svg></div>
+      <div>
+        <h2>Ihr Ikigai-Rad</h2>
+        <p>Wählen Sie eine Dimension aus, um sie einzuschätzen und zu reflektieren.</p>
+      </div>
+    </div>
+
+    <div class="wheel-layout">
+      <div>
+        <div class="wheel-svg-wrap">
+          <svg id="wheelSvg" viewBox="0 0 340 340" width="100%" height="auto"></svg>
+        </div>
+        <p class="wheel-note">Die Größe der Segmente verändert sich mit der Bedeutsamkeit, die Sie einer Dimension zuschreiben. Die Form Ihres Rades kann sich also im Laufe der Zeit verändern.</p>
+      </div>
+
+      <div>
+        <div class="detail-panel" id="detailPanel"></div>
+        <div class="overview-grid" id="overviewGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="step-badge">Ergänzend</div>
+    <div class="section-header">
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8-1.06 0-2.075-.163-3.016-.463L3 21l1.5-3.9C3.55 15.86 3 14.02 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8Z"/></svg></div>
+      <div>
+        <h2>Austausch und Weiterentwicklung</h2>
+        <p>Ikigai entfaltet sich auch im Gespräch mit anderen und über die Zeit.</p>
+      </div>
+    </div>
+    <div class="field">
+      <label for="f-austausch">Was hat sich im Gespräch mit einer Ihnen nahen und vertrauten Person über die Wichtigkeit dieser Dimensionen gezeigt? Wo stimmen Ihre Einschätzungen überein, wo unterscheiden sie sich?</label>
+      <textarea id="f-austausch" placeholder="Notieren Sie, was der Austausch ergeben hat …"></textarea>
+    </div>
+    <div class="field">
+      <label for="f-entwicklung">Falls Sie eine frühere Fassung dieses Rades heruntergeladen haben: Vergleichen Sie diese mit Ihrem heutigen Stand. Was hat sich verändert, und woran könnte das liegen? Falls dies Ihre erste Bearbeitung ist, laden Sie sich die Datei am Ende herunter, um sie später mit einer neuen Fassung vergleichen zu können.</label>
+      <textarea id="f-entwicklung" placeholder="Notieren Sie, was sich im Vergleich zur heruntergeladenen Fassung verändert hat …"></textarea>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn-primary" onclick="downloadText()">Reflexionen als Text herunterladen</button>
+    <button onclick="window.print()">Drucken</button>
+    <button onclick="resetAll()">Zurücksetzen</button>
+  </div>
+  <div class="saved-note" id="savedNote"></div>
+
+  <div class="footer">
+    <p>Diese Anwendung speichert keine Daten. Ihre Eingaben verbleiben ausschließlich in Ihrem Browser, werden nicht an einen Server übertragen und gehen beim Schließen oder Neuladen der Seite verloren, sofern Sie sie nicht zuvor herunterladen.</p>
+    <p style="margin-top:8px;">Übung 23 aus: Vanderheiden, E., &amp; Mayer, C.-H. <em>Ikigai in der Erwachsenenbildung, Beratung und Therapie.</em> UTB. Nach Kamiya (1966).</p>
+  </div>
+
+</div>
+
+<script>
+const DIMENSIONS = [
+  { id: 0, name: 'Lebenszufriedenheit', lines: ['Lebens-', 'zufriedenheit'], color: '#7fa3c4',
+    hint: 'Wie zufrieden sind Sie insgesamt mit Ihrem Leben, so wie es gerade ist? Woran machen Sie das fest?' },
+  { id: 1, name: 'Selbstverwirklichung', lines: ['Selbst-', 'verwirklichung'], color: '#c3bd68',
+    hint: 'Wo verwirklichen Sie sich selbst und Ihre Potenziale? Wo spüren Sie, dass Sie ganz bei sich sind?' },
+  { id: 2, name: 'Freiheit', lines: ['Freiheit'], color: '#a8b96b',
+    hint: 'Wo erleben Sie Freiheit in Ihrem Leben, und wo fehlt sie Ihnen vielleicht?' },
+  { id: 3, name: 'Wachstum und Veränderung', lines: ['Wachstum', 'und', 'Veränderung'], color: '#8ab189',
+    hint: 'Wo erleben Sie gerade Wachstum oder Veränderung? Was hat sich in den letzten Jahren an Ihnen entwickelt?' },
+  { id: 4, name: 'Resonanz in Beziehungen und an Orten', lines: ['Resonanz in', 'Beziehungen', 'und an Orten'], color: '#7cb39e',
+    hint: 'An welchen Orten und in welchen Beziehungen erleben Sie Resonanz, ein Gefühl von Verbundenheit und Widerhall?' },
+  { id: 5, name: 'Eine konstruktive Zukunftsperspektive', lines: ['Eine', 'konstruktive', 'Zukunfts-', 'perspektive'], color: '#6fa8ac',
+    hint: 'Wie blicken Sie auf Ihre Zukunft? Was macht diese Perspektive für Sie konstruktiv, was eher belastend?' },
+  { id: 6, name: 'Harmonie', lines: ['Harmonie'], color: '#4f8b96',
+    hint: 'Wo erleben Sie Harmonie und Einklang in Ihrem Leben, mit sich selbst und mit anderen?' }
+];
+
+const IMPORTANCE_LABELS = { 1: 'eher gering', 2: 'gering', 3: 'mittel', 4: 'hoch', 5: 'sehr hoch' };
+const state = {};
+DIMENSIONS.forEach(d => { state[d.id] = { importance: 3, note: '' }; });
+let selectedId = 0;
+
+const CX = 170, CY = 170, R_MIN = 68, R_MAX = 152, LABEL_FACTOR = 0.62;
+
+function polar(cx, cy, r, angleDeg) {
+  const a = (angleDeg * Math.PI) / 180;
+  return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+}
+
+function radiusFor(importance) {
+  return R_MIN + ((importance - 1) / 4) * (R_MAX - R_MIN);
+}
+
+function renderWheel() {
+  const svg = document.getElementById('wheelSvg');
+  const segAngle = 360 / DIMENSIONS.length;
+  let content = '';
+
+  DIMENSIONS.forEach((d, i) => {
+    const startAngle = -90 + i * segAngle;
+    const endAngle = startAngle + segAngle;
+    const r = radiusFor(state[d.id].importance);
+    const p1 = polar(CX, CY, r, startAngle);
+    const p2 = polar(CX, CY, r, endAngle);
+    const isSelected = d.id === selectedId;
+    const stroke = isSelected ? 'var(--red)' : '#ffffff';
+    const strokeWidth = isSelected ? 2.6 : 2;
+
+    content += `<path class="wedge" data-id="${d.id}" d="M ${CX},${CY} L ${p1.x.toFixed(2)},${p1.y.toFixed(2)} A ${r},${r} 0 0,1 ${p2.x.toFixed(2)},${p2.y.toFixed(2)} Z" fill="${d.color}" stroke="${stroke}" stroke-width="${strokeWidth}" onclick="selectDim(${d.id})"/>`;
+
+    const midAngle = startAngle + segAngle / 2;
+    const labelR = r * LABEL_FACTOR;
+    const labelPos = polar(CX, CY, labelR, midAngle);
+    const lineCount = d.lines.length;
+    const startDy = -((lineCount - 1) * 6.5);
+    content += `<text x="${labelPos.x.toFixed(2)}" y="${labelPos.y.toFixed(2)}" text-anchor="middle" font-size="10.5" fill="#20221f" pointer-events="none">`;
+    d.lines.forEach((line, li) => {
+      content += `<tspan x="${labelPos.x.toFixed(2)}" dy="${li === 0 ? startDy : 13}">${line}</tspan>`;
+    });
+    content += `</text>`;
+  });
+
+  content += `<circle cx="${CX}" cy="${CY}" r="20" fill="var(--ink)"/>`;
+  content += `<text x="${CX}" y="${CY + 4}" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">Ikigai</text>`;
+
+  svg.innerHTML = content;
+}
+
+function renderDetail() {
+  const d = DIMENSIONS.find(x => x.id === selectedId);
+  const s = state[selectedId];
+  const panel = document.getElementById('detailPanel');
+  panel.innerHTML = `
+    <div class="detail-title">${d.name}</div>
+    <div class="detail-hint">${d.hint}</div>
+    <div class="importance-row">
+      <label for="importanceRange">Bedeutsamkeit</label>
+      <input type="range" id="importanceRange" min="1" max="5" value="${s.importance}">
+      <span id="importanceLabel">${IMPORTANCE_LABELS[s.importance]}</span>
+    </div>
+    <textarea id="noteArea" placeholder="Was bedeutet diese Dimension gerade für Sie?">${s.note}</textarea>
+  `;
+  document.getElementById('importanceRange').addEventListener('input', e => {
+    state[selectedId].importance = parseInt(e.target.value, 10);
+    document.getElementById('importanceLabel').textContent = IMPORTANCE_LABELS[state[selectedId].importance];
+    renderWheel();
+    renderOverview();
+  });
+  document.getElementById('noteArea').addEventListener('input', e => {
+    state[selectedId].note = e.target.value;
+    renderOverview();
+    updateProgress();
+  });
+}
+
+function renderOverview() {
+  const grid = document.getElementById('overviewGrid');
+  grid.innerHTML = DIMENSIONS.map(d => {
+    const s = state[d.id];
+    const snippet = s.note.trim() ? (s.note.trim().length > 46 ? s.note.trim().slice(0, 46) + '…' : s.note.trim()) : '';
+    return `
+      <div class="overview-card ${d.id === selectedId ? 'active' : ''}" onclick="selectDim(${d.id})">
+        <span class="dot" style="background:${d.color};"></span><span class="oname">${d.name}</span>
+        <div class="osnippet">${IMPORTANCE_LABELS[s.importance]}${snippet ? ' · ' + snippet : ''}</div>
+      </div>`;
+  }).join('');
+}
+
+function selectDim(id) {
+  selectedId = id;
+  renderWheel();
+  renderDetail();
+  renderOverview();
+}
+
+function updateProgress() {
+  const dimFilled = DIMENSIONS.filter(d => state[d.id].note.trim().length > 0).length;
+  const extraIds = ['f-austausch', 'f-entwicklung'];
+  const extraFilled = extraIds.filter(id => document.getElementById(id).value.trim().length > 0).length;
+  const total = DIMENSIONS.length + extraIds.length;
+  const filled = dimFilled + extraFilled;
+  const pct = Math.round((filled / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = filled + ' von ' + total + ' Reflexionen begonnen';
+}
+
+document.getElementById('f-austausch').addEventListener('input', updateProgress);
+document.getElementById('f-entwicklung').addEventListener('input', updateProgress);
+
+function buildText() {
+  let out = 'IKIGAI-DIMENSIONEN NACH KAMIYA – RAD\n';
+  out += 'Übung 23, aus: Vanderheiden & Mayer, Ikigai in der Erwachsenenbildung, Beratung und Therapie (UTB)\n';
+  out += 'Datum: ' + new Date().toLocaleDateString('de-DE') + '\n';
+  out += '='.repeat(50) + '\n\n';
+
+  DIMENSIONS.forEach(d => {
+    const s = state[d.id];
+    out += d.name + ' (Bedeutsamkeit: ' + IMPORTANCE_LABELS[s.importance] + ')\n';
+    out += '-'.repeat(d.name.length) + '\n';
+    out += (s.note.trim() || '(keine Angabe)') + '\n\n';
+  });
+
+  out += 'Austausch mit einer vertrauten Person\n';
+  out += '-'.repeat(37) + '\n';
+  out += (document.getElementById('f-austausch').value.trim() || '(keine Angabe)') + '\n\n';
+
+  out += 'Entwicklung im Vergleich zur heruntergeladenen Fassung\n';
+  out += '-'.repeat(54) + '\n';
+  out += (document.getElementById('f-entwicklung').value.trim() || '(keine Angabe)') + '\n\n';
+
+  return out;
+}
+
+function downloadText() {
+  const text = buildText();
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ikigai_dimensionen_kamiya_rad_' + new Date().toISOString().slice(0,10) + '.txt';
+  a.click();
+  const note = document.getElementById('savedNote');
+  note.textContent = 'Datei wurde heruntergeladen.';
+  setTimeout(() => { note.textContent = ''; }, 3000);
+}
+
+function resetAll() {
+  if (!confirm('Möchten Sie wirklich alle Einschätzungen und Eingaben löschen?')) return;
+  DIMENSIONS.forEach(d => { state[d.id] = { importance: 3, note: '' }; });
+  document.getElementById('f-austausch').value = '';
+  document.getElementById('f-entwicklung').value = '';
+  selectedId = 0;
+  renderWheel();
+  renderDetail();
+  renderOverview();
+  updateProgress();
+}
+
+renderWheel();
+renderDetail();
+renderOverview();
+updateProgress();
+</script>
+</body>
+</html>
