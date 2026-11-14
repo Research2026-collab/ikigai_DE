@@ -126,9 +126,16 @@ textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px 
   textarea { border: none; background: none; padding: 4px 0; }
 }
 </style>
+<style>
+.back-link{display:inline-flex;align-items:center;gap:6px;margin:0 0 18px;padding:8px 14px;border:1px solid #d9dde3;border-radius:999px;background:#fff;color:var(--accent-dark,#0a7656);font:500 15px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif;text-decoration:none}
+.back-link:hover,.back-link:focus-visible{background:var(--accent-tint,#e6f6f0);border-color:var(--accent,#0e9f74)}
+@media print{.back-link{display:none}}
+</style>
 </head>
 <body>
 <div class="app">
+  <a class="back-link" href="./">&larr; Zur Übersicht aller Übungen</a>
+
 
   <div class="header">
     <div class="eyebrow">Ikigai in der Erwachsenenbildung, Beratung und Therapie</div>

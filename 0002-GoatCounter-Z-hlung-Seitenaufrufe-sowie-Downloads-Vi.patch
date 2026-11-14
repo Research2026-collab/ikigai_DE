@@ -1,7 +1,7 @@
 From 180f6b7971f911e54267db1445beb65d71b8f4a7 Mon Sep 17 00:00:00 2001
 From: Claude <noreply@anthropic.com>
 Date: Sat, 14 Nov 2026 09:09:17 +0000
-Subject: [PATCH 2/2] =?UTF-8?q?GoatCounter-Z=C3=A4hlung:=20Seitenaufrufe?=
+Subject: [PATCH 2/3] =?UTF-8?q?GoatCounter-Z=C3=A4hlung:=20Seitenaufrufe?=
  =?UTF-8?q?=20sowie=20Downloads,=20Video-=20und=20Meditationsstarts=20als?=
  =?UTF-8?q?=20Ereignisse?=
 MIME-Version: 1.0
