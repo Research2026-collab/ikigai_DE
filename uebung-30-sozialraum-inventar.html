@@ -417,6 +417,7 @@ function buildText() {
   return t;
 }
 function downloadText() {
+  gcEvent('download/uebung-30-sozialraum-inventar', 'Text-Download Übung 30');
   const blob = new Blob([buildText()], { type: 'text/plain;charset=utf-8' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -424,6 +425,7 @@ function downloadText() {
   a.click(); URL.revokeObjectURL(a.href);
 }
 function downloadImage() {
+  gcEvent('bild/uebung-30-sozialraum-inventar', 'Bild-Download Übung 30');
   const img = map.querySelector('img');
   const W = 1600, H = 900;
   const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
@@ -469,5 +471,11 @@ function resetAll() {
 }
 render();
 </script>
+<script>
+function gcEvent(path, title) {
+  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
+}
+</script>
+<script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

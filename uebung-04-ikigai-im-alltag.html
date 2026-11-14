@@ -130,7 +130,7 @@ textarea + textarea { margin-top: 12px; }
             <li>die Sorgfalt oder Haltung, die darin sichtbar wird.</li>
           </ul>
         </div>
-        <video controls preload="metadata">
+        <video controls preload="metadata" onplay="if(!this.dataset.gc){this.dataset.gc=1;gcEvent('video/uebung-04-ikigai-im-alltag', 'Video gestartet Übung 4');}">
           <source src="Brot_kneten.mp4" type="video/mp4">
           Ihr Browser unterstützt die Wiedergabe dieses Videos nicht. Sie können es direkt öffnen: <a href="Brot_kneten.mp4">Brot_kneten.mp4</a>
         </video>
@@ -238,6 +238,7 @@ function buildText() {
 }
 
 function downloadText() {
+  gcEvent('download/uebung-04-ikigai-im-alltag', 'Text-Download Übung 4');
   const text = buildText();
   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
   const a = document.createElement('a');
@@ -257,5 +258,11 @@ function resetAll() {
 
 updateProgress();
 </script>
+<script>
+function gcEvent(path, title) {
+  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
+}
+</script>
+<script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

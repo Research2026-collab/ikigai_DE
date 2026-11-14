@@ -252,6 +252,7 @@ function buildText() {
 }
 
 function downloadText() {
+  gcEvent('download/uebung-24-fuenf-saeulen-mogi-2', 'Text-Download Übung 24');
   const text = buildText();
   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
   const a = document.createElement('a');
@@ -273,5 +274,11 @@ renderPillarSvg();
 renderPillars();
 updateProgress();
 </script>
+<script>
+function gcEvent(path, title) {
+  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
+}
+</script>
+<script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

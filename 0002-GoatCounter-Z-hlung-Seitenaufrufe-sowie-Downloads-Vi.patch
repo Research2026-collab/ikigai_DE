@@ -1,0 +1,285 @@
+From 180f6b7971f911e54267db1445beb65d71b8f4a7 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Sat, 14 Nov 2026 09:09:17 +0000
+Subject: [PATCH 2/2] =?UTF-8?q?GoatCounter-Z=C3=A4hlung:=20Seitenaufrufe?=
+ =?UTF-8?q?=20sowie=20Downloads,=20Video-=20und=20Meditationsstarts=20als?=
+ =?UTF-8?q?=20Ereignisse?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01Jj7epco9dn6eTBfnmB7fAm
+---
+ index.html                          | 6 ++++++
+ uebung-04-ikigai-im-alltag.html     | 9 ++++++++-
+ uebung-06-roter-faden.html          | 7 +++++++
+ uebung-23-kamiya-dimensionen.html   | 7 +++++++
+ uebung-23-kamiya-rad.html           | 7 +++++++
+ uebung-24-fuenf-saeulen-mogi-2.html | 7 +++++++
+ uebung-30-sozialraum-inventar.html  | 8 ++++++++
+ uebung-39-metaphern-pinnwand.html   | 7 +++++++
+ uebung-41-koerper-bewegung.html     | 7 +++++++
+ uebung-42-atemmeditation.html       | 8 ++++++++
+ 10 files changed, 72 insertions(+), 1 deletion(-)
+
+diff --git a/index.html b/index.html
+index 4dfc075..52cd7aa 100644
+--- a/index.html
++++ b/index.html
+@@ -169,5 +169,11 @@ function render() {
+ 
+ render();
+ </script>
++<script>
++function gcEvent(path, title) {
++  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
++}
++</script>
++<script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+ </body>
+ </html>
+diff --git a/uebung-04-ikigai-im-alltag.html b/uebung-04-ikigai-im-alltag.html
+index 9619031..fe9a1ef 100644
+--- a/uebung-04-ikigai-im-alltag.html
++++ b/uebung-04-ikigai-im-alltag.html
+@@ -130,7 +130,7 @@ textarea + textarea { margin-top: 12px; }
+             <li>die Sorgfalt oder Haltung, die darin sichtbar wird.</li>
+           </ul>
+         </div>
+-        <video controls preload="metadata">
++        <video controls preload="metadata" onplay="if(!this.dataset.gc){this.dataset.gc=1;gcEvent('video/uebung-04-ikigai-im-alltag', 'Video gestartet Übung 4');}">
+           <source src="Brot_kneten.mp4" type="video/mp4">
+           Ihr Browser unterstützt die Wiedergabe dieses Videos nicht. Sie können es direkt öffnen: <a href="Brot_kneten.mp4">Brot_kneten.mp4</a>
+         </video>
+@@ -238,6 +238,7 @@ function buildText() {
+ }
+ 
+ function downloadText() {
++  gcEvent('download/uebung-04-ikigai-im-alltag', 'Text-Download Übung 4');
+   const text = buildText();
+   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+   const a = document.createElement('a');
+@@ -257,5 +258,11 @@ function resetAll() {
+ 
+ updateProgress();
+ </script>
++<script>
++function gcEvent(path, title) {
++  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
++}
++</script>
++<script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+ </body>
+ </html>
+diff --git a/uebung-06-roter-faden.html b/uebung-06-roter-faden.html
+index 070aa24..b0213ab 100644
+--- a/uebung-06-roter-faden.html
++++ b/uebung-06-roter-faden.html
+@@ -254,6 +254,7 @@ function buildText() {
+ }
+ 
+ function downloadText() {
++  gcEvent('download/uebung-06-roter-faden', 'Text-Download Übung 6');
+   const text = buildText();
+   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+   const a = document.createElement('a');
+@@ -273,5 +274,11 @@ function resetAll() {
+ 
+ updateProgress();
+ </script>
++<script>
++function gcEvent(path, title) {
++  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
++}
++</script>
++<script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+ </body>
+ </html>
+diff --git a/uebung-23-kamiya-dimensionen.html b/uebung-23-kamiya-dimensionen.html
+index ff4a6b3..6359898 100644
+--- a/uebung-23-kamiya-dimensionen.html
++++ b/uebung-23-kamiya-dimensionen.html
+@@ -465,6 +465,7 @@ function buildText() {
+ }
+ 
+ function downloadText() {
++  gcEvent('download/uebung-23-kamiya-dimensionen', 'Text-Download Übung 23');
+   const text = buildText();
+   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+   const a = document.createElement('a');
+@@ -498,5 +499,11 @@ renderDetail();
+ renderWheel();
+ updateProgress();
+ </script>
++<script>
++function gcEvent(path, title) {
++  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
++}
++</script>
++<script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+ </body>
+ </html>
+diff --git a/uebung-23-kamiya-rad.html b/uebung-23-kamiya-rad.html
+index 6659176..2f1c33f 100644
+--- a/uebung-23-kamiya-rad.html
++++ b/uebung-23-kamiya-rad.html
+@@ -335,6 +335,7 @@ function buildText() {
+ }
+ 
+ function downloadText() {
++  gcEvent('download/uebung-23-kamiya-rad', 'Text-Download Übung 23');
+   const text = buildText();
+   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+   const a = document.createElement('a');
+@@ -363,5 +364,11 @@ renderDetail();
+ renderOverview();
+ updateProgress();
+ </script>
++<script>
++function gcEvent(path, title) {
++  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
++}
++</script>
++<script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+ </body>
+ </html>
+diff --git a/uebung-24-fuenf-saeulen-mogi-2.html b/uebung-24-fuenf-saeulen-mogi-2.html
+index a08611b..69a6b91 100644
+--- a/uebung-24-fuenf-saeulen-mogi-2.html
++++ b/uebung-24-fuenf-saeulen-mogi-2.html
+@@ -252,6 +252,7 @@ function buildText() {
+ }
+ 
+ function downloadText() {
++  gcEvent('download/uebung-24-fuenf-saeulen-mogi-2', 'Text-Download Übung 24');
+   const text = buildText();
+   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+   const a = document.createElement('a');
+@@ -273,5 +274,11 @@ renderPillarSvg();
+ renderPillars();
+ updateProgress();
+ </script>
++<script>
++function gcEvent(path, title) {
++  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
++}
++</script>
++<script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+ </body>
+ </html>
+diff --git a/uebung-30-sozialraum-inventar.html b/uebung-30-sozialraum-inventar.html
+index 19386ea..f144c80 100644
+--- a/uebung-30-sozialraum-inventar.html
++++ b/uebung-30-sozialraum-inventar.html
+@@ -417,6 +417,7 @@ function buildText() {
+   return t;
+ }
+ function downloadText() {
++  gcEvent('download/uebung-30-sozialraum-inventar', 'Text-Download Übung 30');
+   const blob = new Blob([buildText()], { type: 'text/plain;charset=utf-8' });
+   const a = document.createElement('a');
+   a.href = URL.createObjectURL(blob);
+@@ -424,6 +425,7 @@ function downloadText() {
+   a.click(); URL.revokeObjectURL(a.href);
+ }
+ function downloadImage() {
++  gcEvent('bild/uebung-30-sozialraum-inventar', 'Bild-Download Übung 30');
+   const img = map.querySelector('img');
+   const W = 1600, H = 900;
+   const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+@@ -469,5 +471,11 @@ function resetAll() {
+ }
+ render();
+ </script>
++<script>
++function gcEvent(path, title) {
++  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
++}
++</script>
++<script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+ </body>
+ </html>
+diff --git a/uebung-39-metaphern-pinnwand.html b/uebung-39-metaphern-pinnwand.html
+index 056e12b..6a790dc 100644
+--- a/uebung-39-metaphern-pinnwand.html
++++ b/uebung-39-metaphern-pinnwand.html
+@@ -391,6 +391,7 @@ function buildText() {
+ }
+ 
+ function downloadText() {
++  gcEvent('download/uebung-39-metaphern-pinnwand', 'Text-Download Übung 39');
+   const text = buildText();
+   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+   const a = document.createElement('a');
+@@ -413,5 +414,11 @@ function resetAll() {
+ renderBoard();
+ updateProgress();
+ </script>
++<script>
++function gcEvent(path, title) {
++  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
++}
++</script>
++<script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+ </body>
+ </html>
+diff --git a/uebung-41-koerper-bewegung.html b/uebung-41-koerper-bewegung.html
+index d14e2ce..e844576 100644
+--- a/uebung-41-koerper-bewegung.html
++++ b/uebung-41-koerper-bewegung.html
+@@ -404,6 +404,7 @@ function buildText() {
+ }
+ 
+ function downloadText() {
++  gcEvent('download/uebung-41-koerper-bewegung', 'Text-Download Übung 41');
+   const text = buildText();
+   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+   const a = document.createElement('a');
+@@ -432,5 +433,11 @@ renderTabs();
+ renderZoneNotes();
+ updateProgress();
+ </script>
++<script>
++function gcEvent(path, title) {
++  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
++}
++</script>
++<script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+ </body>
+ </html>
+diff --git a/uebung-42-atemmeditation.html b/uebung-42-atemmeditation.html
+index 06cdd2f..4c7485b 100644
+--- a/uebung-42-atemmeditation.html
++++ b/uebung-42-atemmeditation.html
+@@ -335,6 +335,7 @@ function tickProgress() {
+ }
+ 
+ function startMeditation() {
++  gcEvent('start/uebung-42-atemmeditation', 'Start Meditation Übung 42');
+   ended = false;
+   playing = true;
+   elapsedBeforeCurrent = 0;
+@@ -433,6 +434,7 @@ function buildText() {
+ }
+ 
+ function downloadText() {
++  gcEvent('download/uebung-42-atemmeditation', 'Text-Download Übung 42');
+   const text = buildText();
+   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+   const a = document.createElement('a');
+@@ -452,5 +454,11 @@ function resetAll() {
+ 
+ updateProgressDisplay(0);
+ </script>
++<script>
++function gcEvent(path, title) {
++  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
++}
++</script>
++<script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+ </body>
+ </html>
+-- 
+2.43.0
+

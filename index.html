@@ -126,25 +126,25 @@ const EXERCISES = [
     datei: 'uebung-30-sozialraum-inventar.html'
   },
   {
-    nummer: '40',
+    nummer: '39',
     kapitel: 'Kapitel 4.7.2 · Ikigai und Metaphern',
     titel: 'Metaphern-Pinnwand zu Ikigai',
     beschreibung: 'Eigene Metaphern als frei verschiebbare Klebezettel auf einer wachsenden Pinnwand.',
-    datei: 'uebung-40-metaphern-pinnwand.html'
+    datei: 'uebung-39-metaphern-pinnwand.html'
+  },
+  {
+    nummer: '41',
+    kapitel: 'Kapitel 4.7.4 · Ikigai und Körperausdruck',
+    titel: 'Ikigai, Körper und Bewegung',
+    beschreibung: 'Eine klickbare Körperkarte zur Lokalisierung des eigenen Ikigai, mit Raum für eigene Körperstellen.',
+    datei: 'uebung-41-koerper-bewegung.html'
   },
   {
     nummer: '42',
     kapitel: 'Kapitel 4.7.4 · Ikigai und Körperausdruck',
-    titel: 'Ikigai, Körper und Bewegung',
-    beschreibung: 'Eine klickbare Körperkarte zur Lokalisierung des eigenen Ikigai, mit Raum für eigene Körperstellen.',
-    datei: 'uebung-42-koerper-bewegung.html'
-  },
-  {
-    nummer: '43',
-    kapitel: 'Kapitel 4.7.4 · Ikigai und Körperausdruck',
     titel: 'Ikigai-Atemmeditation',
     beschreibung: 'Eine geführte Atemmeditation mit Atemanimation, Timer und begleitendem Text.',
-    datei: 'uebung-43-atemmeditation.html'
+    datei: 'uebung-42-atemmeditation.html'
   }
 ];
 
@@ -169,5 +169,11 @@ function render() {
 
 render();
 </script>
+<script>
+function gcEvent(path, title) {
+  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
+}
+</script>
+<script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

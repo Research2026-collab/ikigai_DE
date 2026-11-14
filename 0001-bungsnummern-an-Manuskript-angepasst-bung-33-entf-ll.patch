@@ -1,0 +1,163 @@
+From e0679d685ef6376f80e1c68d8d21ed10df44aab0 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Sat, 14 Nov 2026 09:07:22 +0000
+Subject: [PATCH 1/2] =?UTF-8?q?=C3=9Cbungsnummern=20an=20Manuskript=20ange?=
+ =?UTF-8?q?passt=20(=C3=9Cbung=2033=20entf=C3=A4llt):=2040=E2=86=9239,=204?=
+ =?UTF-8?q?2=E2=86=9241,=2043=E2=86=9242?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01Jj7epco9dn6eTBfnmB7fAm
+---
+ index.html                                           | 12 ++++++------
+ ...innwand.html => uebung-39-metaphern-pinnwand.html |  6 +++---
+ ...-bewegung.html => uebung-41-koerper-bewegung.html |  6 +++---
+ ...mmeditation.html => uebung-42-atemmeditation.html |  6 +++---
+ 4 files changed, 15 insertions(+), 15 deletions(-)
+ rename uebung-40-metaphern-pinnwand.html => uebung-39-metaphern-pinnwand.html (98%)
+ rename uebung-42-koerper-bewegung.html => uebung-41-koerper-bewegung.html (99%)
+ rename uebung-43-atemmeditation.html => uebung-42-atemmeditation.html (99%)
+
+diff --git a/index.html b/index.html
+index ad0d6af..4dfc075 100644
+--- a/index.html
++++ b/index.html
+@@ -126,25 +126,25 @@ const EXERCISES = [
+     datei: 'uebung-30-sozialraum-inventar.html'
+   },
+   {
+-    nummer: '40',
++    nummer: '39',
+     kapitel: 'Kapitel 4.7.2 · Ikigai und Metaphern',
+     titel: 'Metaphern-Pinnwand zu Ikigai',
+     beschreibung: 'Eigene Metaphern als frei verschiebbare Klebezettel auf einer wachsenden Pinnwand.',
+-    datei: 'uebung-40-metaphern-pinnwand.html'
++    datei: 'uebung-39-metaphern-pinnwand.html'
+   },
+   {
+-    nummer: '42',
++    nummer: '41',
+     kapitel: 'Kapitel 4.7.4 · Ikigai und Körperausdruck',
+     titel: 'Ikigai, Körper und Bewegung',
+     beschreibung: 'Eine klickbare Körperkarte zur Lokalisierung des eigenen Ikigai, mit Raum für eigene Körperstellen.',
+-    datei: 'uebung-42-koerper-bewegung.html'
++    datei: 'uebung-41-koerper-bewegung.html'
+   },
+   {
+-    nummer: '43',
++    nummer: '42',
+     kapitel: 'Kapitel 4.7.4 · Ikigai und Körperausdruck',
+     titel: 'Ikigai-Atemmeditation',
+     beschreibung: 'Eine geführte Atemmeditation mit Atemanimation, Timer und begleitendem Text.',
+-    datei: 'uebung-43-atemmeditation.html'
++    datei: 'uebung-42-atemmeditation.html'
+   }
+ ];
+ 
+diff --git a/uebung-40-metaphern-pinnwand.html b/uebung-39-metaphern-pinnwand.html
+similarity index 98%
+rename from uebung-40-metaphern-pinnwand.html
+rename to uebung-39-metaphern-pinnwand.html
+index 2cbc820..056e12b 100644
+--- a/uebung-40-metaphern-pinnwand.html
++++ b/uebung-39-metaphern-pinnwand.html
+@@ -129,7 +129,7 @@ textarea.reflect:focus { outline: none; border-color: var(--red); box-shadow: 0
+   <div class="header">
+     <div class="eyebrow">Ikigai in der Erwachsenenbildung, Beratung und Therapie</div>
+     <h1>Metaphern-Pinnwand zu Ikigai</h1>
+-    <p class="subtitle">Übung 40, Kapitel 4.7.2 · Ikigai und Metaphern</p>
++    <p class="subtitle">Übung 39, Kapitel 4.7.2 · Ikigai und Metaphern</p>
+     <div class="task">
+       Was bedeutet Ikigai für Sie? Wenn Sie eine Metapher für Ikigai finden müssten, wie würde sie lauten? Nehmen Sie sich etwas Zeit, um über diese Frage nachzudenken, und schreiben Sie die Metapher oder auch unterschiedliche Metaphern auf, die Ikigai für Sie ausdrücken. Stellen Sie so über die Zeit eine eigene Metaphern-Sammlung zu Ikigai zusammen und reflektieren Sie darüber.
+     </div>
+@@ -201,7 +201,7 @@ textarea.reflect:focus { outline: none; border-color: var(--red); box-shadow: 0
+ 
+   <div class="footer">
+     <p>Diese Anwendung speichert keine Daten. Ihre Eingaben verbleiben ausschließlich in Ihrem Browser, werden nicht an einen Server übertragen und gehen beim Schließen oder Neuladen der Seite verloren, sofern Sie sie nicht zuvor herunterladen.</p>
+-    <p style="margin-top:8px;">Übung 40 aus: Vanderheiden, E., &amp; Mayer, C.-H. <em>Ikigai in der Erwachsenenbildung, Beratung und Therapie.</em> UTB.</p>
++    <p style="margin-top:8px;">Übung 39 aus: Vanderheiden, E., &amp; Mayer, C.-H. <em>Ikigai in der Erwachsenenbildung, Beratung und Therapie.</em> UTB.</p>
+   </div>
+ 
+ </div>
+@@ -359,7 +359,7 @@ FIELDS.forEach(id => document.getElementById(id).addEventListener('input', updat
+ 
+ function buildText() {
+   let out = 'METAPHERN-PINNWAND ZU IKIGAI\n';
+-  out += 'Übung 40, aus: Vanderheiden & Mayer, Ikigai in der Erwachsenenbildung, Beratung und Therapie (UTB)\n';
++  out += 'Übung 39, aus: Vanderheiden & Mayer, Ikigai in der Erwachsenenbildung, Beratung und Therapie (UTB)\n';
+   out += 'Datum: ' + new Date().toLocaleDateString('de-DE') + '\n';
+   out += '='.repeat(50) + '\n\n';
+ 
+diff --git a/uebung-42-koerper-bewegung.html b/uebung-41-koerper-bewegung.html
+similarity index 99%
+rename from uebung-42-koerper-bewegung.html
+rename to uebung-41-koerper-bewegung.html
+index 701b457..d14e2ce 100644
+--- a/uebung-42-koerper-bewegung.html
++++ b/uebung-41-koerper-bewegung.html
+@@ -133,7 +133,7 @@ textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px
+   <div class="header">
+     <div class="eyebrow">Ikigai in der Erwachsenenbildung, Beratung und Therapie</div>
+     <h1>Ikigai, Körper und Bewegung</h1>
+-    <p class="subtitle">Übung 42, Kapitel 4.7.4 · Ikigai und Körperausdruck</p>
++    <p class="subtitle">Übung 41, Kapitel 4.7.4 · Ikigai und Körperausdruck</p>
+     <div class="task">
+       Blicken Sie auf den Zusammenhang von Ikigai, Körper und Bewegung. Mit welchem Körperteil verbinden Sie ein starkes Ikigai? Spüren Sie zunächst nach, wie sich Ihr Körper anfühlt, wenn Sie ein starkes Ikigai verspüren. Wo in Ihrem Körper lokalisieren Sie Ihr Ikigai? Welchen körperlichen Ausdruck würden Sie einem starken Ikigai geben? Nach de Almeida und Rodrigues (2024) wird Ikigai häufig mit der Brust, mit dem Herzen (Kokoro), dem Bauch, dem Zentrum des Körpers oder auch mit der Ganzheitlichkeit des Körpers verbunden.
+     </div>
+@@ -201,7 +201,7 @@ textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px
+ 
+   <div class="footer">
+     <p>Diese Anwendung speichert keine Daten. Ihre Eingaben verbleiben ausschließlich in Ihrem Browser, werden nicht an einen Server übertragen und gehen beim Schließen oder Neuladen der Seite verloren, sofern Sie sie nicht zuvor herunterladen.</p>
+-    <p style="margin-top:8px;">Übung 42 aus: Vanderheiden, E., &amp; Mayer, C.-H. <em>Ikigai in der Erwachsenenbildung, Beratung und Therapie.</em> UTB. Nach de Almeida &amp; Rodrigues (2024).</p>
++    <p style="margin-top:8px;">Übung 41 aus: Vanderheiden, E., &amp; Mayer, C.-H. <em>Ikigai in der Erwachsenenbildung, Beratung und Therapie.</em> UTB. Nach de Almeida &amp; Rodrigues (2024).</p>
+   </div>
+ 
+ </div>
+@@ -365,7 +365,7 @@ GENERAL_FIELDS.forEach(id => document.getElementById(id).addEventListener('input
+ 
+ function buildText() {
+   let out = 'IKIGAI, KÖRPER UND BEWEGUNG\n';
+-  out += 'Übung 42, aus: Vanderheiden & Mayer, Ikigai in der Erwachsenenbildung, Beratung und Therapie (UTB)\n';
++  out += 'Übung 41, aus: Vanderheiden & Mayer, Ikigai in der Erwachsenenbildung, Beratung und Therapie (UTB)\n';
+   out += 'Datum: ' + new Date().toLocaleDateString('de-DE') + '\n';
+   out += '='.repeat(50) + '\n\n';
+ 
+diff --git a/uebung-43-atemmeditation.html b/uebung-42-atemmeditation.html
+similarity index 99%
+rename from uebung-43-atemmeditation.html
+rename to uebung-42-atemmeditation.html
+index b20b493..06cdd2f 100644
+--- a/uebung-43-atemmeditation.html
++++ b/uebung-42-atemmeditation.html
+@@ -126,7 +126,7 @@ textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px
+   <div class="header">
+     <div class="eyebrow">Ikigai in der Erwachsenenbildung, Beratung und Therapie</div>
+     <h1>Ikigai-Atemmeditation</h1>
+-    <p class="subtitle">Achtsamkeitsübung 43, Kapitel 4.7.4 · Ikigai und Körperausdruck</p>
++    <p class="subtitle">Achtsamkeitsübung 42, Kapitel 4.7.4 · Ikigai und Körperausdruck</p>
+     <div class="task">
+       Führen Sie eine kleine Ikigai-Atem-Meditation durch und spüren Sie in Ihren Körper und Atem hinein. Halten Sie mit Ihren Füßen Kontakt zum Boden, entspannen Sie Ihren Körper, Ihre Hände, Arme und Schultern, und lassen Sie sich von der folgenden Meditation durch Ihren Atem begleiten. Setzen Sie sich am besten bequem hin und lesen Sie die Zeilen in Ihrem eigenen Tempo mit, während der Kreis Ihnen einen ruhigen Atemrhythmus anbietet.
+     </div>
+@@ -180,7 +180,7 @@ textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px
+ 
+   <div class="footer">
+     <p>Diese Anwendung speichert keine Daten. Ihre Eingaben verbleiben ausschließlich in Ihrem Browser, werden nicht an einen Server übertragen und gehen beim Schließen oder Neuladen der Seite verloren, sofern Sie sie nicht zuvor herunterladen.</p>
+-    <p style="margin-top:8px;">Achtsamkeitsübung 43 aus: Vanderheiden, E., &amp; Mayer, C.-H. <em>Ikigai in der Erwachsenenbildung, Beratung und Therapie.</em> UTB.</p>
++    <p style="margin-top:8px;">Achtsamkeitsübung 42 aus: Vanderheiden, E., &amp; Mayer, C.-H. <em>Ikigai in der Erwachsenenbildung, Beratung und Therapie.</em> UTB.</p>
+   </div>
+ 
+ </div>
+@@ -415,7 +415,7 @@ const REFLECT_FIELDS = ['f-erfahrung', 'f-andeutung'];
+ 
+ function buildText() {
+   let out = 'IKIGAI-ATEMMEDITATION\n';
+-  out += 'Achtsamkeitsübung 43, aus: Vanderheiden & Mayer, Ikigai in der Erwachsenenbildung, Beratung und Therapie (UTB)\n';
++  out += 'Achtsamkeitsübung 42, aus: Vanderheiden & Mayer, Ikigai in der Erwachsenenbildung, Beratung und Therapie (UTB)\n';
+   out += 'Datum: ' + new Date().toLocaleDateString('de-DE') + '\n';
+   out += '='.repeat(50) + '\n\n';
+ 
+-- 
+2.43.0
+
