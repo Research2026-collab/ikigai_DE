@@ -124,6 +124,13 @@ textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px 
 .back-link:hover,.back-link:focus-visible{background:var(--accent-tint,#e6f6f0);border-color:var(--accent,#0e9f74)}
 @media print{.back-link{display:none}}
 </style>
+<style>
+.audio-section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:28px;text-align:center}
+.audio-section h2{font-family:Georgia,"Iowan Old Style","Times New Roman",serif;font-size:19px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.audio-section p{font-size:13.5px;color:var(--text-muted);max-width:620px;margin:0 auto 14px;line-height:1.65}
+.audio-section audio{width:100%;max-width:560px}
+@media print{.audio-section{display:none}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -137,6 +144,15 @@ textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px 
     <div class="task">
       Führen Sie eine kleine Ikigai-Atem-Meditation durch und spüren Sie in Ihren Körper und Atem hinein. Halten Sie mit Ihren Füßen Kontakt zum Boden, entspannen Sie Ihren Körper, Ihre Hände, Arme und Schultern, und lassen Sie sich von der folgenden Meditation durch Ihren Atem begleiten. Setzen Sie sich am besten bequem hin und lesen Sie die Zeilen in Ihrem eigenen Tempo mit, während der Kreis Ihnen einen ruhigen Atemrhythmus anbietet.
     </div>
+  </div>
+
+  <div class="audio-section">
+    <h2>Gesprochene Fassung</h2>
+    <p>Wenn Sie sich lieber führen lassen möchten, können Sie die Meditation hier als Audioaufnahme anhören (etwa 4 Minuten). Schließen Sie dabei gern die Augen.</p>
+    <audio id="medAudio" controls preload="metadata">
+      <source src="Atemmeditation.m4a" type="audio/mp4">
+      Ihr Browser kann diese Audiodatei nicht abspielen. <a href="Atemmeditation.m4a">Aufnahme herunterladen</a>
+    </audio>
   </div>
 
   <div class="med-section">
@@ -465,6 +481,12 @@ updateProgressDisplay(0);
 function gcEvent(path, title) {
   try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title || path, event: true }); } catch (e) {}
 }
+</script>
+<script>
+(function(){
+  var a=document.getElementById('medAudio'); var counted=false;
+  if(a) a.addEventListener('play',function(){ if(!counted){ counted=true; gcEvent('audio/uebung-42-atemmeditation','Audio Atemmeditation Übung 42'); } });
+})();
 </script>
 <script data-goatcounter="https://elisabethenglishresearch206.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
